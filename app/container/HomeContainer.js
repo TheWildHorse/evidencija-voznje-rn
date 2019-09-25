@@ -12,7 +12,7 @@ import {
   createVehicleApi,
   saveDataApi,
   serverUrl,
-  recordForm,
+  recordForm, getDataApi,
 } from '../config/Params';
 
 const window = Dimensions.get('window');
@@ -43,6 +43,7 @@ class HomeContainer extends Component {
       fabActive: false,
       coordinates: [],
       initialKilometers: null,
+      isTabRefreshing: false,
     };
   }
 
@@ -407,6 +408,43 @@ class HomeContainer extends Component {
     );
   };
 
+  refreshTab = async tab => {
+    await this.setState({
+      isTabRefreshing: true,
+    });
+    let token = await _storageService.getData('token');
+    if (tab === 'records') {
+      let body = JSON.stringify({
+        token: token,
+      });
+      let records = await _serverService.sendRequest(getDataApi, body);
+      this.setState({
+        records: records.data,
+      });
+    }
+    if (tab === 'companies') {
+      let companies = await _serverService.getCompanies(token);
+      this.setState({
+        companies: companies,
+      });
+    }
+    if (tab === 'vehicles') {
+      let vehicles = await _serverService.getVehicles(token);
+      this.setState({
+        vehicles: vehicles,
+      });
+    }
+    if (tab === 'invitations') {
+      let invitations = await _serverService.getInvitations(token);
+      this.setState({
+        invitations: invitations,
+      });
+    }
+    await this.setState({
+      isTabRefreshing: false,
+    });
+  };
+
   componentWillUnmount() {
     this.backHandler.remove();
   }
@@ -450,6 +488,8 @@ class HomeContainer extends Component {
         records={this.state.records}
         handleRecordButton={this.handleRecordButton.bind(this)}
         handleInitialKilometers={this.handleInitialKilometers.bind(this)}
+        refreshTab={this.refreshTab.bind(this)}
+        isTabRefreshing={this.state.isTabRefreshing}
       />
     );
   }

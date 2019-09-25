@@ -95,7 +95,10 @@ const TrackingTab = props => {
         </Row>
         <Row size={10}>
           <Col>
-            <Input placeholder={'Stanje brojila'} onChangeText={(txt) => props.handleInitialKilometers(txt)}/>
+            <Input
+              placeholder={'Stanje brojila'}
+              onChangeText={txt => props.handleInitialKilometers(txt)}
+            />
           </Col>
         </Row>
         <Row size={80}>

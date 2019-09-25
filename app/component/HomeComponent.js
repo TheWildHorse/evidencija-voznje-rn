@@ -25,16 +25,26 @@ const HomeComponent = props => {
         renderTabBar={() => <ScrollableTab />}
         onChangeTab={ref => props.handleTabChange(ref)}>
         <Tab heading="Tvrtke">
-          <CompaniesTab companies={props.companies} />
+          <CompaniesTab
+            isTabRefreshing={props.isTabRefreshing}
+            refreshTab={props.refreshTab}
+            companies={props.companies}
+          />
         </Tab>
         <Tab heading="Pozivnice">
           <InvitationsTab
+            isTabRefreshing={props.isTabRefreshing}
+            refreshTab={props.refreshTab}
             invitations={props.invitations}
             acceptInvitation={props.acceptInvitation}
           />
         </Tab>
         <Tab heading="Vozila">
-          <VehiclesTab vehicles={props.vehicles} />
+          <VehiclesTab
+            isTabRefreshing={props.isTabRefreshing}
+            refreshTab={props.refreshTab}
+            vehicles={props.vehicles}
+          />
         </Tab>
         <Tab heading="Praćenje">
           <TrackingTab
@@ -55,6 +65,8 @@ const HomeComponent = props => {
         </Tab>
         <Tab heading="Evidencija">
           <RecordsTab
+            isTabRefreshing={props.isTabRefreshing}
+            refreshTab={props.refreshTab}
             records={props.records}
             handleRecordButton={props.handleRecordButton.bind(this)}
           />
