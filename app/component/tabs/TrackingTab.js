@@ -45,7 +45,7 @@ let generateVehiclePicker = (
       </Form>
     );
   } else {
-    return <Text>Nemate dodanih tvrtka</Text>;
+    return <Text>Nemate dodanih vozila</Text>;
   }
 };
 
