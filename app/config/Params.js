@@ -1,4 +1,4 @@
-const serverUrl = "http://evidencija-voznje.rinkovec.com";
+const serverUrl = "https://evidencija-voznje.rinkovec.com";
 const registerApi = "/api/v1/register";
 const loginApi = "/api/v1/loginUser";
 const createCompanyApi = "/api/v1/createCompany";

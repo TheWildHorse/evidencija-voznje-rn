@@ -23,7 +23,7 @@ const generateList = (records, buttonAction) => {
             </Text>
           </Left>
           <Right>
-            <Button title="Preuzmi nalog" onPress={() => buttonAction(a.id)} />
+            <Button title="Preuzmi nalog" onPress={() => buttonAction(a.dbId)} />
           </Right>
         </ListItem>
       );

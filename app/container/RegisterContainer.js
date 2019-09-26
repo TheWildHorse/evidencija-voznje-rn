@@ -62,6 +62,9 @@ class RegisterContainer extends Component {
     });
 
     let response = await _serverService.sendRequest(registerApi, body);
+    this.setState({
+      loading: false,
+    });
     if (response.code === 200 && response.token) {
       await _databaseService.deleteFromTable('user'); // delete previous users if any
       _databaseService.insertIntoUserTable(response.token, response.username); // insert token
