@@ -12,7 +12,8 @@ import {
   createVehicleApi,
   saveDataApi,
   serverUrl,
-  recordForm, getDataApi,
+  recordForm,
+  getDataApi,
 } from '../config/Params';
 
 const window = Dimensions.get('window');
@@ -102,6 +103,18 @@ class HomeContainer extends Component {
     });
   };
 
+  handleCompanyAddressInput = name => {
+    this.setState({
+      companyAddress: name,
+    });
+  };
+
+  handleCompanyOibInput = name => {
+    this.setState({
+      companyOib: name,
+    });
+  };
+
   handleInvitationInput = email => {
     this.setState({
       invitationEmail: email,
@@ -116,9 +129,11 @@ class HomeContainer extends Component {
 
   handleNewCompany = async () => {
     let company = this.state.company;
+    let address = this.state.companyAddress;
+    let oib = this.state.companyOib;
 
-    if (!(company !== '')) {
-      alert('Unesite naziv nove tvrtke!');
+    if (!(company !== '') || !(address !== '') || !(oib !== '')) {
+      alert('Popunite sve polja!');
       return;
     }
     let token = await _storageService.getData('token');
@@ -126,6 +141,8 @@ class HomeContainer extends Component {
 
     let body = JSON.stringify({
       companyName: company,
+      companyAddress: address,
+      companyOib: oib,
       token: token,
     });
     let response = await _serverService.sendRequest(createCompanyApi, body);
@@ -490,6 +507,8 @@ class HomeContainer extends Component {
         handleInitialKilometers={this.handleInitialKilometers.bind(this)}
         refreshTab={this.refreshTab.bind(this)}
         isTabRefreshing={this.state.isTabRefreshing}
+        handleCompanyOibInput={this.handleCompanyOibInput.bind(this)}
+        handleCompanyAddressInput={this.handleCompanyAddressInput.bind(this)}
       />
     );
   }

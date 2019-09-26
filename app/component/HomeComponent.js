@@ -117,6 +117,8 @@ const HomeComponent = props => {
           handleModal={props.handleModal.bind(this)}
           handleCompanyInput={props.handleCompanyInput.bind(this)}
           handleNewCompany={props.handleNewCompany}
+          handleCompanyAddressInput={props.handleCompanyAddressInput}
+          handleCompanyOibInput={props.handleCompanyOibInput}
         />
       )}
 
