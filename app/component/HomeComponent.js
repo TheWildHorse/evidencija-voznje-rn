@@ -44,6 +44,7 @@ const HomeComponent = props => {
             isTabRefreshing={props.isTabRefreshing}
             refreshTab={props.refreshTab}
             vehicles={props.vehicles}
+            deleteVehicle={props.deleteVehicle}
           />
         </Tab>
         <Tab heading="Praćenje">

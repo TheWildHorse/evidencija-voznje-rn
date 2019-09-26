@@ -14,6 +14,7 @@ import {
   serverUrl,
   recordForm,
   getDataApi,
+  deleteVehicleApi,
 } from '../config/Params';
 
 const window = Dimensions.get('window');
@@ -462,6 +463,28 @@ class HomeContainer extends Component {
     });
   };
 
+  deleteVehicle = async vehicle => {
+    let token = await _storageService.getData('token');
+    let body = JSON.stringify({
+      token: token,
+      vehicleRegistration: vehicle,
+    });
+    let response = await _serverService.sendRequest(deleteVehicleApi, body);
+    if (response.code === 200) {
+      let i = 0;
+      let vehicles = this.state.vehicles;
+      for (i = 0; i < vehicles.length; i++) {
+        if (vehicles[i].vehicles.indexOf(vehicle) !== -1) {
+          break;
+        }
+      }
+      vehicles[i].vehicles.splice(vehicles[i].vehicles.indexOf(vehicle), 1);
+      this.setState({
+        vehicles: vehicles,
+      });
+    }
+  };
+
   componentWillUnmount() {
     this.backHandler.remove();
   }
@@ -509,6 +532,7 @@ class HomeContainer extends Component {
         isTabRefreshing={this.state.isTabRefreshing}
         handleCompanyOibInput={this.handleCompanyOibInput.bind(this)}
         handleCompanyAddressInput={this.handleCompanyAddressInput.bind(this)}
+        deleteVehicle={this.deleteVehicle.bind(this)}
       />
     );
   }
